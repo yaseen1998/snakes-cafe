@@ -52,10 +52,32 @@ def printorder(result,resultOfquant):
 def checkOrder(order,resulrOfOrder,resultOfquant,count):
     if order in resulrOfOrder:
         ind = resulrOfOrder.index(order)
-        resultOfquant[ind]=input(f'this item is exist edir the  quantity {resultOfquant[ind]} : ')
+        resultOfquant[ind]=input(f'this item is exist edit the  quantity {resultOfquant[ind]} : ')
         return [resultOfquant,ind]
     else:
         return(count.append(1))
+
+def OrderLoop(order,resultOforder,resultOfquant,count,countlist):
+     for j in range(len(meal)):
+            
+            if order in (meal[j]['menu']):   
+                check = checkOrder(order,resultOforder,resultOfquant,count)
+                if check:
+                    resultOfquant=check[0]
+                    quantOfOrder=check[0][check[1]]
+                    count[check[1]]+=1
+                    print(f'** {count[check[1]]} order of {order} : {quantOfOrder} have been added to your meal **')
+
+                else:
+                    quantOfOrder = input('how match do you want ')
+                    resultOfquant.append(quantOfOrder)
+                    resultOforder.append(order)
+                    print(f'** {count[countlist]} order of {order} : {quantOfOrder} have been added to your meal **')
+                    countlist+=1
+                break
+            if j==len(meal)-1:
+                print('sorry but we do not have this in our menu yet')
+                break
 
 def customerorder():
     printmenu()
@@ -65,31 +87,10 @@ def customerorder():
     count = []
     countlist=0
     while order != 'quit':
-        for j in range(len(meal)):
-            
-            if order in (meal[j]['menu']):   
-                check = checkOrder(order,resultOforder,resultOfquant,count)
-                if check:
-                    resultOfquant=check[0]
-                    quantOfOrder=check[0][check[1]]
-                    count[check[1]]+=1
-                    print(f'**{count[check[1]]} order of {order} : {quantOfOrder} have been added to your meal**')
-
-                else:
-                    quantOfOrder = input('how match do you want ')
-                    resultOfquant.append(quantOfOrder)
-                    resultOforder.append(order)
-                    print(f'**{count[countlist]} order of {order} : {quantOfOrder} have been added to your meal**')
-                    countlist+=1
-                break
-            if j==len(meal)-1:
-                print('sorry but we do not have this in our menu yet')
-                break
-               
-                
-        
+        OrderLoop(order,resultOforder,resultOfquant,count,countlist)
         order = input('> ')
         
     printorder(resultOforder,resultOfquant)
+
 
 customerorder()
